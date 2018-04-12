@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ht.mapper.TestMapper">
+<cache type="org.mybatis.caches.ehcache.LoggingEhcache"></cache>
+
+<resultMap type="com.ht.model.Test" id="userResultMap">
+<result column="birthday" property="birthday"/>
+
+</resultMap>
+<select id="list" resultMap="userResultMap">
+select * from tests
+</select>
+<select id="getById" resultMap="userResultMap" parameterType="java.lang.Integer">
+		select * from tests where id = #{id}
+	</select>
+
+<insert id="insert" parameterType="com.ht.model.Test">
+insert into tests(username,password,name,sex,birthday,remark) value(#{username},#{password},#{name},#{sex},#{birthday},#{remark})
+</insert>
+<update id="update" parameterType="com.ht.model.Test">
+update tests set name = #{name}, age = #{age}, sex = #{sex}, birthday = #{birthday}
+			where id = #{id}
+
+</update>
+<delete id="delete" parameterType="java.lang.Integer">
+delete from tests where id=#{id}
+</delete>
+</mapper>
